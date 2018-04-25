@@ -1,0 +1,8 @@
+{
+  "name": "friend-finder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/jaseat/friend-finder.git",
+  "author": "jaseat <jaseat@users.noreply.github.com>",
+  "license": "MIT"
+}
