@@ -10,6 +10,7 @@ function validateScores(scores){
     }
     let valid = true;
     scores.forEach(e => {
+        e = parseInt(e);
         if(isNaN(e))
             valid = false;
         else if (e < 0 || e > 5)
