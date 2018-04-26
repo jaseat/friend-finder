@@ -1,7 +1,6 @@
 const fs = require('fs');
 
 function validateScores(scores){
-    scores = scores.split(',');
     if(!(scores instanceof Array)){
         return false;
     }
@@ -20,8 +19,26 @@ function validateScores(scores){
 }
 
 function stringToArray(str){
-    let arr = str.split(',');
-    return arr.map(v => parseInt(v));
+    if(!str) return null;
+    return str.split(',').map(v => parseInt(v));
+}
+
+function findMatch(person){
+    let bestScore = 100;
+    let match = 0;
+    let friends = fs.readFileSync('./app/data/friend.json');
+    friends = JSON.parse(friends);
+    friends.forEach( (friend, index) => {
+        let score = 0;
+        for(let i = 0; i < friend.scores.length; i++){
+            score += Math.abs(friend.scores[i] - person.scores[i]);
+        }
+        if (score < bestScore){
+            bestScore = score;
+            match = index;
+        }
+    });
+    return friends[match];
 }
 
 module.exports = app => {
@@ -33,15 +50,16 @@ module.exports = app => {
 
     app.post('/api/friends', (req, res) => {
         let {name, photo, scores} = req.body;
+        scores = (typeof scores === 'string') ? stringToArray(scores) : scores.map(v => parseInt(v));
         if(!name || !photo || !scores || !validateScores(scores)){
             return res.status(400).send('Invalid Form');
         }
-        scores = stringToArray(scores);
         let newData = {name, photo, scores};
         let data = fs.readFileSync('./app/data/friend.json');
+        let match = findMatch(newData);
         data = JSON.parse(data);
         data.push(newData);
         fs.writeFileSync('./app/data/friend.json', JSON.stringify(data));
-        res.status(200).send('Form Submitted!');
+        res.status(200).send(match);
     });
 }

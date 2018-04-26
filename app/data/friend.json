@@ -1,1 +1,5 @@
-[{"name":"Test","photo":"https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png","scores":[5,1,4,4,5,1,2,5,4,1]},{"name":"test2","photo":"whatever","scores":[1,1,1,1,1,1,1,1,1,1]},{"name":"test2","photo":"whatever","scores":[1,1,1,1,1,1,1,1,1,1]}]
+[{
+    "name": "Josh",
+    "photo": "https://www.designzzz.com/wp-content/uploads/2012/12/freestock_image_by_goldman555-d495w4s.jpg",
+    "scores": [2, 3, 3, 3, 4, 3, 4, 3, 3, 2]
+}]
